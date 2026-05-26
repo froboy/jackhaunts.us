@@ -2,7 +2,10 @@
   "defaults": {
     "standard": "WCAG2AAA",
     "timeout": 30000,
-    "wait": 1000
+    "wait": 1000,
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
   },
   "urls": [
     "dist/index.html",
