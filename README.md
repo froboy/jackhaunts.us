@@ -75,6 +75,19 @@ Commit and push to `main`.
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API token with Pages deploy permission |
 | `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID |
 
+#### Create `CLOUDFLARE_API_TOKEN` (required for deploy workflow)
+
+1. In Cloudflare, go to **My Profile → API Tokens → Create Token**
+2. Choose **Create Custom Token**
+3. Add this permission:
+   - **Account → Cloudflare Pages → Edit**
+4. Under **Account Resources**, include the account that owns `jackhaunts-us`
+5. Create token and add it to this repo as `CLOUDFLARE_API_TOKEN`
+
+To set `CLOUDFLARE_ACCOUNT_ID`, copy the account ID from the Cloudflare dashboard sidebar and store it in GitHub Actions secrets.
+
+If deploy logs show `Authentication error [code: 10000]`, the token is missing required Pages permissions or is scoped to the wrong account.
+
 ### Cloudflare Worker (set with `wrangler secret put`)
 
 | Secret | How to set |

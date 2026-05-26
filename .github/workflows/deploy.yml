@@ -32,6 +32,29 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Validate Cloudflare deploy credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "${CLOUDFLARE_API_TOKEN}" ]; then
+            echo "::error::Missing CLOUDFLARE_API_TOKEN secret."
+            exit 1
+          fi
+
+          if [ -z "${CLOUDFLARE_ACCOUNT_ID}" ]; then
+            echo "::error::Missing CLOUDFLARE_ACCOUNT_ID secret."
+            exit 1
+          fi
+
+          API_RESPONSE="$(curl -sS --oauth2-bearer "${CLOUDFLARE_API_TOKEN}" "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/jackhaunts-us")"
+
+          if ! printf '%s' "${API_RESPONSE}" | grep -q '"success":true'; then
+            echo "::error::Cloudflare authentication failed for Pages deploy. Use a CLOUDFLARE_API_TOKEN with Account > Cloudflare Pages > Edit permission scoped to this account."
+            echo "::error::Cloudflare API response: ${API_RESPONSE}"
+            exit 1
+          fi
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
