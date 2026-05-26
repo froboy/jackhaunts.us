@@ -121,6 +121,14 @@ npx wrangler secret put TURNSTILE_SECRET_KEY
 
 ---
 
+## Set up the Cloudflare Pages project
+
+Create a Cloudflare Pages project. The projectName should match the one set in `.github/workflows/deploy.yml`.
+
+```bash
+npx wrangler pages project create projectName
+```
+
 ## Deploying the Worker
 
 The GitHub Actions deploy workflow now deploys both the Pages site and the submission worker on pushes to `main`.
