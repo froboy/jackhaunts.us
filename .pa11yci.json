@@ -1,0 +1,12 @@
+{
+  "defaults": {
+    "standard": "WCAG2AAA",
+    "timeout": 30000,
+    "wait": 1000
+  },
+  "urls": [
+    "dist/index.html",
+    "dist/submit/index.html",
+    "dist/404.html"
+  ]
+}

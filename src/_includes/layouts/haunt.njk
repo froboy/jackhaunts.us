@@ -1,0 +1,24 @@
+---
+layout: layouts/base.njk
+---
+<article class="haunt-page">
+  <div class="haunt-page__back">
+    <a href="/" class="back-link">← Back to Wall of Haunts</a>
+  </div>
+
+  <header class="haunt-page__header">
+    <h1 class="haunt-page__title">{{ title }}</h1>
+    <p class="haunt-page__meta">
+      Requested by <strong>{{ requester or "Anonymous" }}</strong>
+      {% if submitted %}
+        on <time datetime="{{ submitted }}">{{ submitted | readableDate }}</time>
+      {% endif %}
+    </p>
+  </header>
+
+  <div class="haunt-page__body">
+    <blockquote class="haunt-request">
+      <p>{{ request }}</p>
+    </blockquote>
+  </div>
+</article>

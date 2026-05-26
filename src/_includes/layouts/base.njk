@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title %}{{ title }} | {{ siteConfig.siteTitle }}{% else %}{{ siteConfig.siteTitle }}{% endif %}</title>
+  <meta name="description" content="{% if description %}{{ description }}{% else %}{{ siteConfig.description }}{% endif %}">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% if title %}{{ title }} | {{ siteConfig.siteTitle }}{% else %}{{ siteConfig.siteTitle }}{% endif %}">
+  <meta property="og:description" content="{% if description %}{{ description }}{% else %}{{ siteConfig.description }}{% endif %}">
+  <meta property="og:image" content="{{ siteConfig.siteUrl }}{{ siteConfig.ogImage }}">
+  <meta property="og:url" content="{{ siteConfig.siteUrl }}{{ page.url }}">
+  <meta property="og:site_name" content="{{ siteConfig.siteTitle }}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% if title %}{{ title }} | {{ siteConfig.siteTitle }}{% else %}{{ siteConfig.siteTitle }}{% endif %}">
+  <meta name="twitter:description" content="{% if description %}{{ description }}{% else %}{{ siteConfig.description }}{% endif %}">
+  <meta name="twitter:image" content="{{ siteConfig.siteUrl }}{{ siteConfig.ogImage }}">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="{{ siteConfig.siteUrl }}{{ page.url }}">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <!-- Skip to main content -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  {% include "components/header.njk" %}
+
+  <main id="main-content" tabindex="-1">
+    {{ content | safe }}
+  </main>
+
+  {% include "components/footer.njk" %}
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

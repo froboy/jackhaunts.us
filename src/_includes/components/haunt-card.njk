@@ -1,0 +1,11 @@
+<article class="haunt-card" aria-label="Haunt request from {{ haunt.data.requester or 'Anonymous' }}">
+  <h2 class="haunt-card__name">
+    <a href="/haunts/{{ haunt.data.slug }}/" class="haunt-card__link">
+      {{ haunt.data.requester or "Anonymous" }}
+    </a>
+  </h2>
+  <p class="haunt-card__teaser">{{ haunt.data.request | truncate(160) }}</p>
+  <a href="/haunts/{{ haunt.data.slug }}/" class="haunt-card__read-more" aria-label="Read full haunt request from {{ haunt.data.requester or 'Anonymous' }}">
+    Read full request <span aria-hidden="true">→</span>
+  </a>
+</article>

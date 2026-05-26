@@ -1,0 +1,144 @@
+---
+layout: layouts/base.njk
+title: "Submit a Haunt Request"
+description: "Request Jack haunt you after he passes. Be specific — he takes his work seriously."
+permalink: /submit/
+---
+
+<div class="submit-page">
+  {% if siteConfig.mode === "haunting" %}
+    <div class="haunting-notice" role="region" aria-label="Submissions closed">
+      <h1 class="haunting-notice__title">Jack has passed.</h1>
+      <p class="haunting-notice__text">
+        The window for Haunt Requests is closed. Jack reviewed every submission
+        before he went. If you didn't get your request in, well — he may haunt
+        you anyway. He was like that.
+      </p>
+      <p class="haunting-notice__text" style="margin-top: 1rem;">
+        <a href="/">See who Jack is haunting →</a>
+      </p>
+    </div>
+  {% else %}
+    <header class="submit-page__header">
+      <h1 class="submit-page__title">Request a Haunt</h1>
+      <p class="submit-page__description">
+        Jack is reviewing all requests before it's too late. Tell him exactly
+        where, when, and how you'd like to be haunted. He takes his work seriously.
+      </p>
+    </header>
+
+    <!-- Live region for form status -->
+    <div
+      id="form-status"
+      class="form-status"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      tabindex="-1"
+    >
+      <p id="form-success"></p>
+      <p id="form-error-global"></p>
+    </div>
+
+    <form
+      id="haunt-form"
+      class="haunt-form"
+      method="POST"
+      action="https://worker.jackhaunts.us/submit"
+      novalidate
+    >
+      <!-- Honeypot field: hidden from humans, visible to bots -->
+      <div class="form-honeypot" aria-hidden="true">
+        <label for="_gotcha">Leave this empty</label>
+        <input
+          type="text"
+          id="_gotcha"
+          name="_gotcha"
+          tabindex="-1"
+          autocomplete="off"
+        >
+      </div>
+
+      <!-- Name field (optional) -->
+      <div class="form-field">
+        <label class="form-label" for="name">
+          Your name <span class="optional">(optional — you may submit as Anonymous)</span>
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-input"
+          autocomplete="name"
+          maxlength="100"
+          aria-describedby="name-error"
+        >
+        <span id="name-error" class="form-error" role="alert"></span>
+      </div>
+
+      <!-- Haunt request (required) -->
+      <div class="form-field">
+        <label class="form-label" for="request">
+          Your haunt request <span aria-hidden="true" style="color: var(--color-error);">*</span>
+          <span class="sr-only">(required)</span>
+        </label>
+        <textarea
+          id="request"
+          name="request"
+          class="form-textarea"
+          required
+          maxlength="1000"
+          aria-required="true"
+          aria-describedby="request-error request-hint"
+          placeholder="Describe where, when, and how you'd like to be haunted. Be specific. Jack takes his work seriously."
+        ></textarea>
+        <span id="request-hint" class="form-label optional">Max 1,000 characters.</span>
+        <span id="request-error" class="form-error" role="alert"></span>
+      </div>
+
+      <!-- Undead declaration (required) -->
+      <div class="form-field">
+        <fieldset>
+          <legend class="form-label">
+            Eligibility <span aria-hidden="true" style="color: var(--color-error);">*</span>
+            <span class="sr-only">(required)</span>
+          </legend>
+          <div class="form-checkbox-group">
+            <label class="form-checkbox-label" for="notUndead">
+              <input
+                type="checkbox"
+                id="notUndead"
+                name="notUndead"
+                class="form-checkbox"
+                required
+                aria-required="true"
+                aria-describedby="notUndead-error"
+              >
+              I solemnly confirm I am not currently deceased, undead, or otherwise post-mortem.
+            </label>
+          </div>
+          <span id="notUndead-error" class="form-error" role="alert"></span>
+        </fieldset>
+      </div>
+
+      <!-- Cloudflare Turnstile -->
+      <div class="form-field form-turnstile">
+        <label class="form-label" id="turnstile-label">Human verification</label>
+        <div
+          class="cf-turnstile"
+          data-sitekey="{{ siteConfig.turnstileSiteKey or 'YOUR_TURNSTILE_SITE_KEY' }}"
+          data-theme="dark"
+          aria-labelledby="turnstile-label"
+        ></div>
+      </div>
+
+      <div>
+        <button type="submit" class="form-submit">
+          Submit Haunt Request
+        </button>
+      </div>
+    </form>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  {% endif %}
+</div>
