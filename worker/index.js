@@ -174,7 +174,7 @@ slug: "${slug}"
 request: >
   ${escapedRequest.replace(/\n/g, "\n  ")}
 submitted: ${submitted}
-status: pending
+status: approved
 ---
 `;
 }
@@ -248,7 +248,7 @@ async function createBranchAndPR(
       title: `Haunt Request: ${displayName}`,
       head: branchName,
       base: "main",
-      body: `## Haunt Request from ${displayName}\n\n> ${teaser}\n\n---\n\n- [ ] Request is genuine and in good spirit\n- [ ] No spam, abusive content, or personally identifying info that shouldn't be public\n- [ ] Requester confirmed they are not undead\n- [ ] \`status\` is set to \`approved\` before merging\n\n**To publish:** Change \`status: pending\` to \`status: approved\` in the frontmatter, then merge.`,
+      body: `## Haunt Request from ${displayName}\n\n> ${teaser}\n\n---\n\n- [ ] Request is genuine and in good spirit\n- [ ] No spam, abusive content, or personally identifying info that shouldn't be public\n- [ ] Requester confirmed they are not undead\n\n**To publish:** Merge this PR.`,
     }),
   });
 }

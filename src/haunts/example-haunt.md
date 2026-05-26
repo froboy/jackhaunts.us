@@ -9,4 +9,4 @@ submitted: 2026-05-26
 status: draft
 ---
 
-This file is a template and example. Set `status: approved` to publish a haunt to the site.
+This file is a template and example, so it stays in `draft` status and will not publish.

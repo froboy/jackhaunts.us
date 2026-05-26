@@ -33,8 +33,7 @@ Submissions come in as GitHub Pull Requests. To publish a haunt:
 
 1. Open the PR in GitHub
 2. Review the request (see checklist in the PR template)
-3. Change `status: pending` → `status: approved` in the `.md` file frontmatter
-4. Merge the PR — Cloudflare Pages auto-deploys on merge to `main`
+3. Merge the PR — Cloudflare Pages auto-deploys on merge to `main`
 
 To reject a request, close the PR without merging.
 
