@@ -123,6 +123,10 @@ npx wrangler secret put TURNSTILE_SECRET_KEY
 
 ## Deploying the Worker
 
+The GitHub Actions deploy workflow now deploys both the Pages site and the submission worker on pushes to `main`.
+
+For first-time setup or manual redeploys:
+
 ```bash
 cd worker
 npx wrangler deploy
