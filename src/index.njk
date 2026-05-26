@@ -1,15 +1,15 @@
 ---
 layout: layouts/base.njk
 title: "Wall of Haunts"
-description: "Jack is dying and he wants to haunt you. Browse the Wall of Haunts and see who's on the list."
+description: "Browse the Wall of Haunts — every haunt request, waiting to be fulfilled."
 ---
 
 <section class="hero">
   <div class="hero__inner">
     {% if siteConfig.mode === "haunting" %}
-      <p class="hero__eyebrow">Jack is gone</p>
-      <h1 class="hero__title flicker">Jack is haunting you now.</h1>
-      <p class="hero__tagline">He reviewed every request. He knows where you sleep.</p>
+      <p class="hero__eyebrow">{{ siteConfig.haunterName }} is gone</p>
+      <h1 class="hero__title flicker">{{ siteConfig.haunterName }} is haunting for you now.</h1>
+      <p class="hero__tagline">{{ siteConfig.haunterPronounSubject | capitalize }} reviewed every request. {{ siteConfig.haunterPronounSubject | capitalize }} knows exactly where to go.</p>
     {% else %}
       <p class="hero__eyebrow">A tribute in the making</p>
       <h1 class="hero__title flicker">{{ siteConfig.siteTitle }}</h1>
@@ -25,7 +25,7 @@ description: "Jack is dying and he wants to haunt you. Browse the Wall of Haunts
   <div class="haunts-section__inner">
     <h2 class="haunts-section__heading" id="haunts-heading">
       {% if siteConfig.mode === "haunting" %}
-        Who Jack is Haunting
+        Who {{ siteConfig.haunterName }} Is Haunting For
       {% else %}
         The Wall of Haunts
       {% endif %}

@@ -23,6 +23,12 @@ module.exports = function (eleventyConfig) {
     );
   });
 
+  // Capitalize filter
+  eleventyConfig.addFilter("capitalize", function (str) {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  });
+
   // Truncate filter for teasers
   eleventyConfig.addFilter("truncate", function (str, length = 160) {
     if (!str) return "";

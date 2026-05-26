@@ -1,29 +1,31 @@
 ---
 layout: layouts/base.njk
-title: "Submit a Haunt Request"
-description: "Request Jack haunt you after he passes. Be specific — he takes his work seriously."
+title: "Request a Haunt"
+description: "Submit a Haunt Request — your haunter does the work, for you."
 permalink: /submit/
 ---
 
 <div class="submit-page">
   {% if siteConfig.mode === "haunting" %}
     <div class="haunting-notice" role="region" aria-label="Submissions closed">
-      <h1 class="haunting-notice__title">Jack has passed.</h1>
+      <h1 class="haunting-notice__title">{{ siteConfig.haunterName }} has passed.</h1>
       <p class="haunting-notice__text">
-        The window for Haunt Requests is closed. Jack reviewed every submission
-        before he went. If you didn't get your request in, well — he may haunt
-        you anyway. He was like that.
+        The window for Haunt Requests is closed. {{ siteConfig.haunterName }} reviewed every submission
+        before {{ siteConfig.haunterPronounSubject }} went. {{ siteConfig.haunterPronounSubject | capitalize }}
+        knows exactly who to haunt, and {{ siteConfig.haunterPronounSubject }} is already on it.
       </p>
       <p class="haunting-notice__text" style="margin-top: 1rem;">
-        <a href="/">See who Jack is haunting →</a>
+        <a href="/">See who {{ siteConfig.haunterName }} is haunting for →</a>
       </p>
     </div>
   {% else %}
     <header class="submit-page__header">
       <h1 class="submit-page__title">Request a Haunt</h1>
       <p class="submit-page__description">
-        Jack is reviewing all requests before it's too late. Tell him exactly
-        where, when, and how you'd like to be haunted. He takes his work seriously.
+        {{ siteConfig.haunterName }} is taking requests. Tell {{ siteConfig.haunterPronounObject }}
+        who or what to haunt — a person, a place, a particularly smug houseplant. Be specific.
+        {{ siteConfig.haunterPronounSubject | capitalize }} takes {{ siteConfig.haunterPronounPossessive }}
+        work seriously.
       </p>
     </header>
 
@@ -90,7 +92,7 @@ permalink: /submit/
           maxlength="1000"
           aria-required="true"
           aria-describedby="request-error request-hint"
-          placeholder="Describe where, when, and how you'd like to be haunted. Be specific. Jack takes his work seriously."
+          placeholder="Who or what should {{ siteConfig.haunterName }} haunt for you? Where, when, how? Be specific — {{ siteConfig.haunterPronounSubject }} takes {{ siteConfig.haunterPronounPossessive }} work seriously."
         ></textarea>
         <span id="request-hint" class="form-label optional">Max 1,000 characters.</span>
         <span id="request-error" class="form-error" role="alert"></span>
@@ -126,7 +128,7 @@ permalink: /submit/
         <label class="form-label" id="turnstile-label">Human verification</label>
         <div
           class="cf-turnstile"
-          data-sitekey="{{ siteConfig.turnstileSiteKey or 'YOUR_TURNSTILE_SITE_KEY' }}"
+          data-sitekey="{{ siteConfig.turnstileSiteKey }}"
           data-theme="dark"
           aria-labelledby="turnstile-label"
         ></div>

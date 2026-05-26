@@ -37,9 +37,9 @@ jobs:
             const config = JSON.parse(fs.readFileSync('src/_data/siteConfig.json', 'utf8'));
             config.mode = '${{ inputs.mode }}';
             if ('${{ inputs.mode }}' === 'haunting') {
-              config.jackIsGone = true;
-              config.tagline = 'Jack is haunting you now.';
-              config.description = 'Jack has passed. Browse the Wall of Haunts to see who he is visiting.';
+              config.haunterIsGone = true;
+              config.tagline = config.haunterName + ' is haunting for you now.';
+              config.description = config.haunterName + ' has passed. Browse the Wall of Haunts to see who ' + config.haunterPronounSubject + ' is working for.';
             }
             fs.writeFileSync('src/_data/siteConfig.json', JSON.stringify(config, null, 2) + '\n');
           "

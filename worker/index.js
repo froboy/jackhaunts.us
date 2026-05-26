@@ -143,9 +143,16 @@ async function verifyTurnstile(token, secret, ip) {
 
 function sanitize(str, maxLength) {
   if (!str) return "";
-  // Strip HTML tags
-  const stripped = str.replace(/<[^>]*>/g, "").trim();
-  return stripped.slice(0, maxLength);
+  // Encode characters that have special meaning in HTML/YAML rather than
+  // attempting to strip tags (stripping is incomplete and bypassable).
+  const encoded = str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
+    .trim();
+  return encoded.slice(0, maxLength);
 }
 
 function toSlug(str) {
@@ -173,7 +180,8 @@ status: pending
 }
 
 function escapeYaml(str) {
-  return str.replace(/"/g, '\\"');
+  // Escape backslashes first, then double quotes, to avoid double-escaping.
+  return str.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }
 
 async function createBranchAndPR(
