@@ -6,6 +6,7 @@ description: "Browse the Wall of Haunts — every haunt request, waiting to be f
 
 <section class="hero">
   <div class="hero__inner">
+    <span class="hero__ghost" aria-hidden="true">👻</span>
     {% if siteConfig.mode === "haunting" %}
       <p class="hero__eyebrow">{{ siteConfig.haunterName }} is gone</p>
       <h1 class="hero__title flicker">{{ siteConfig.haunterName }} is haunting for you now.</h1>
@@ -15,7 +16,7 @@ description: "Browse the Wall of Haunts — every haunt request, waiting to be f
       <h1 class="hero__title flicker">{{ siteConfig.siteTitle }}</h1>
       <p class="hero__tagline">{{ siteConfig.tagline }}</p>
       <a href="/submit/" class="hero__cta">
-        <span aria-hidden="true">👻</span> Request a Haunt
+        Request a Haunt
       </a>
     {% endif %}
   </div>
