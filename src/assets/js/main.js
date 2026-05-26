@@ -91,7 +91,7 @@
         form.reset();
         if (successMsg) {
           successMsg.textContent =
-            "Your haunt request has been received. Jack will review it personally.";
+            "Your haunt request has been received. Jack's team will review it.";
           successMsg.closest(".form-status").className =
             "form-status is-visible form-status--success";
           successMsg.closest(".form-status").focus();
