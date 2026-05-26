@@ -1,0 +1,56 @@
+---
+layout: layouts/base.njk
+title: "Wall of Haunts"
+description: "Browse the Wall of Haunts — every haunt request, waiting to be fulfilled."
+---
+
+<section class="hero">
+  <div class="hero__inner">
+    <span class="hero__ghost" aria-hidden="true">👻</span>
+    {% if siteConfig.mode === "haunting" %}
+      <p class="hero__eyebrow">{{ siteConfig.haunterName }} is gone</p>
+      <h1 class="hero__title flicker">{{ siteConfig.haunterName }} is haunting for you now.</h1>
+      <p class="hero__tagline">{{ siteConfig.haunterPronounSubject | capitalize }} reviewed every request. {{ siteConfig.haunterPronounSubject | capitalize }} knows exactly where to go.</p>
+    {% else %}
+      <p class="hero__eyebrow">A tribute in the making</p>
+      <h1 class="hero__title flicker">{{ siteConfig.siteTitle }}</h1>
+      <p class="hero__tagline">{{ siteConfig.tagline }}</p>
+      <a href="/submit/" class="hero__cta">
+        Request a Haunt
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="haunts-section" aria-labelledby="haunts-heading">
+  <div class="haunts-section__inner">
+    <h2 class="haunts-section__heading" id="haunts-heading">
+      {% if siteConfig.mode === "haunting" %}
+        Who {{ siteConfig.haunterName }} Is Haunting For
+      {% else %}
+        The Wall of Haunts
+      {% endif %}
+    </h2>
+
+    {% if collections.haunts.length > 0 %}
+      <ul class="haunts-grid" role="list">
+        {% for haunt in collections.haunts %}
+          <li>
+            {% set haunt = haunt %}
+            {% include "components/haunt-card.njk" %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-state">
+        <span class="empty-state__icon" aria-hidden="true">👻</span>
+        <h3 class="empty-state__heading">No haunts yet.</h3>
+        {% if siteConfig.mode === "requesting" %}
+          <p>Be the first to <a href="/submit/">request a haunt</a>.</p>
+        {% else %}
+          <p>The haunting has begun, but the wall is empty. Strange.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>

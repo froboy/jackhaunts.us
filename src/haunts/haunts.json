@@ -1,0 +1,5 @@
+{
+  "layout": "layouts/haunt.njk",
+  "permalink": "/haunts/{{ slug }}/index.html",
+  "tags": ["haunt"]
+}

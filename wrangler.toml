@@ -1,0 +1,9 @@
+name = "jackhaunts-worker"
+main = "worker/index.js"
+compatibility_date = "2024-01-01"
+
+# Secrets are NOT stored here — set them with:
+#   npx wrangler secret put GITHUB_TOKEN
+#   npx wrangler secret put TURNSTILE_SECRET_KEY
+#
+# See README.md for full setup instructions.
