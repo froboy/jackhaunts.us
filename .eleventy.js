@@ -36,16 +36,18 @@ module.exports = function (eleventyConfig) {
     return str.slice(0, length).trim() + "…";
   });
 
-  // Haunts collection: approved haunts sorted by submitted date descending
+  // Haunts collection: approved haunts in randomized order
   eleventyConfig.addCollection("haunts", function (collectionApi) {
-    return collectionApi
+    const approvedHaunts = collectionApi
       .getFilteredByGlob("src/haunts/*.md")
-      .filter((item) => item.data.status === "approved")
-      .sort((a, b) => {
-        const dateA = new Date(a.data.submitted || 0);
-        const dateB = new Date(b.data.submitted || 0);
-        return dateB - dateA;
-      });
+      .filter((item) => item.data.status === "approved");
+
+    for (let i = approvedHaunts.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [approvedHaunts[i], approvedHaunts[j]] = [approvedHaunts[j], approvedHaunts[i]];
+    }
+
+    return approvedHaunts;
   });
 
   return {
