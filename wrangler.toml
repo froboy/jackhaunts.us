@@ -5,8 +5,21 @@ routes = [
   { pattern = "worker.jackhaunts.us", custom_domain = true }
 ]
 
+send_email = [
+  {name = "SEND_EMAIL"}
+]
+
+[[kv_namespaces]]
+binding = "HAUNT_KV"
+id = "PLACEHOLDER_KV_NAMESPACE_ID"
+# Replace PLACEHOLDER_KV_NAMESPACE_ID with the real ID after running:
+#   npx wrangler kv namespace create HAUNT_KV
+
 # Secrets are NOT stored here — set them with:
 #   npx wrangler secret put GITHUB_TOKEN
 #   npx wrangler secret put TURNSTILE_SECRET_KEY
+#   npx wrangler secret put APPROVER_EMAILS
+#   npx wrangler secret put APPROVAL_EMAIL
+#   npx wrangler secret put FROM_EMAIL
 #
 # See README.md for full setup instructions.
