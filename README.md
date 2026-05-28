@@ -29,13 +29,30 @@ npm run build      # builds to dist/
 
 ## Reviewing & Approving Haunt Requests
 
-Submissions come in as GitHub Pull Requests. To publish a haunt:
+Submissions come in as GitHub Pull Requests. There are two ways to publish a haunt:
+
+### Option 1 — GitHub (existing flow)
 
 1. Open the PR in GitHub
 2. Review the request (see checklist in the PR template)
 3. Merge the PR — Cloudflare Pages auto-deploys on merge to `main`
 
-To reject a request, close the PR without merging.
+### Option 2 — Email (reply-to-approve)
+
+When a new request is submitted, the Worker sends a notification email to every
+address in `APPROVER_EMAILS`. The email includes the full request and a unique
+`Reply-To` address. To approve:
+
+1. Open the notification email
+2. Reply to it from the same authorized address (no message body required)
+
+The Worker's inbound email handler will receive the reply, verify the sender is
+an authorized approver, then automatically merge the corresponding GitHub PR.
+
+To reject a request, close the GitHub PR without merging (no email action needed).
+
+> **Note:** Email approval requires the email bindings below to be configured.
+> If they are not configured, the GitHub PR flow still works normally.
 
 ---
 
@@ -80,6 +97,62 @@ Commit and push to `main`.
 |---|---|
 | `GITHUB_TOKEN` | `npx wrangler secret put GITHUB_TOKEN` — a GitHub PAT with `repo` scope on this repo |
 | `TURNSTILE_SECRET_KEY` | `npx wrangler secret put TURNSTILE_SECRET_KEY` — from the Turnstile dashboard (see below) |
+| `APPROVER_EMAILS` | `npx wrangler secret put APPROVER_EMAILS` — comma-separated list of email addresses that are allowed to approve requests by replying (e.g. `alice@example.com,bob@example.com`) |
+| `APPROVAL_EMAIL` | `npx wrangler secret put APPROVAL_EMAIL` — the email address configured in Cloudflare Email Routing to route inbound mail to this Worker (e.g. `approve@jackhaunts.us`) |
+| `FROM_EMAIL` | `npx wrangler secret put FROM_EMAIL` — the verified sender address used for outbound notifications (e.g. `haunt@jackhaunts.us`) |
+
+The last three secrets are optional. If they are not set, the Worker skips email
+notifications and the GitHub PR flow is the only approval path.
+
+---
+
+## Setting Up Email Notifications & Reply-to-Approve
+
+This feature uses [Cloudflare Email Workers](https://developers.cloudflare.com/email-routing/email-workers/)
+for both sending notifications and receiving approval replies.
+
+### Step 1 — Create a KV namespace for pending approvals
+
+```bash
+npx wrangler kv namespace create HAUNT_KV
+```
+
+Copy the `id` from the output and replace `PLACEHOLDER_KV_NAMESPACE_ID` in `wrangler.toml`.
+
+### Step 2 — Configure Cloudflare Email Routing
+
+1. Go to [Cloudflare Dashboard → Email Routing](https://dash.cloudflare.com/?to=/:account/:zone/email/routing)
+   for your domain (e.g. `jackhaunts.us`)
+2. Enable Email Routing if not already enabled
+3. Under **Routing rules**, add a **Catch-all** rule (or a rule matching
+   `approve+*@jackhaunts.us`) that sends email to **Worker** → `jackhaunts-worker`
+4. Under **Destination addresses**, add each approver's email and verify it
+
+### Step 3 — Choose sender and approval addresses
+
+- `FROM_EMAIL` — a verified address on your domain used as the notification sender
+  (e.g. `haunt@jackhaunts.us`). Add it as a verified address in Email Routing.
+- `APPROVAL_EMAIL` — the address approvers reply to (e.g. `approve@jackhaunts.us`).
+  This must be routed to the Worker in Step 2.
+
+### Step 4 — Set the Worker secrets
+
+```bash
+npx wrangler secret put APPROVER_EMAILS
+# Enter: alice@example.com,bob@example.com
+
+npx wrangler secret put APPROVAL_EMAIL
+# Enter: approve@jackhaunts.us
+
+npx wrangler secret put FROM_EMAIL
+# Enter: haunt@jackhaunts.us
+```
+
+### Step 5 — Deploy
+
+```bash
+npx wrangler deploy
+```
 
 ---
 
