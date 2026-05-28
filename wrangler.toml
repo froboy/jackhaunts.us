@@ -11,7 +11,7 @@ send_email = [
 
 [[kv_namespaces]]
 binding = "HAUNT_KV"
-id = "PLACEHOLDER_KV_NAMESPACE_ID"
+id = "4c6945e1b5b042ad9900f096ab5d144b"
 # Replace PLACEHOLDER_KV_NAMESPACE_ID with the real ID after running:
 #   npx wrangler kv namespace create HAUNT_KV
 
