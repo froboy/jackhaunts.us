@@ -9,7 +9,7 @@ Tell him who to haunt — he'll handle the rest.
 
 ## What Is This?
 
-Jack is dying — but he's not done working. This site lets friends submit **Haunt Requests**: tell Jack who or what to haunt on your behalf, and he'll get right to it once he's crossed over. While he can still review them, every request gets his personal attention.
+Jack is ~dying~ gone — but he's not done working. This site lets friends submit **Haunt Requests**: tell Jack who or what to haunt on your behalf, and he'll get right to it once he's crossed over. While he can still review them, every request gets his personal attention.
 
 Once Jack passes, the site flips to **Haunting mode**: the form closes, and the Wall of Haunts becomes a record of his active work.
 
